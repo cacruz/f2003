@@ -1,0 +1,20 @@
+include ../config/common.mk
+.PHONY: clean all
+
+EXE = employee_test.x 
+
+all:  $(EXE)
+
+clean:
+	rm -f *.[ox] *.mod
+
+employee_test.x: employee_test.o employee_mod_abs.o  \
+	salaried_employee_mod_abs.o  hourly_employee_mod_abs.o  
+	$(FC) $(FFLAGS) $^ -o $@ $(LDFLAGS)
+
+
+employee_test.o: salaried_employee_mod_abs.o hourly_employee_mod_abs.o
+
+salaried_employee_mod_abs.o: employee_mod_abs.o
+
+hourly_employee_mod_abs.o: employee_mod_abs.o
